@@ -10,3 +10,4 @@
 博客链接[Rorical](https://blog.boxpaper.club/)
 
 截图
+![ScreenShot](screenshot.png)
