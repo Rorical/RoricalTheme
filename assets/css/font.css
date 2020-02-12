@@ -1,0 +1,12 @@
+
+@font-face {font-family: "SourceHanSansCN";
+  src: url('./SourceHanSansCN-Normal.ttf') format('truetype');
+}
+.md_content p {
+  font-family:"SourceHanSansCN" !important;
+  font-size: 1.5rem;
+}
+.comments p {
+	font-family:"SourceHanSansCN" !important;
+	font-size: 1.2rem;
+}

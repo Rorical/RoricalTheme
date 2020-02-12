@@ -1,0 +1,188 @@
+.lazy{width:100%;height:0;padding-top:75%;background-size:100%;outline: 1px solid #000;position: absolute;top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;}
+    @media(max-width: 678px){.hidden_on_phone{display:none;}}
+    .blackback{
+    	background: rgba(0, 0, 0, 0.1);
+    }
+    .md_content img{
+    	max-width: 65%;
+    	margin: auto 15%;
+    	position: relative;
+    	box-shadow: 0 15px 35px rgba(50, 50, 93, .1), 0 5px 15px rgba(0, 0, 0, .07);
+    	margin-top: 3rem ;
+    	margin-bottom: 3rem;
+	}
+    .tu{
+    	width:100%; height: 334px; 
+    	background-size: cover;
+    	background-position:center;
+    	background-repeat:no-repeat;
+    	overflow:hidden;
+    }
+    .thumbnails{
+        filter: blur(4px);
+        transition: all 1.2s;
+        
+		 max-width: 100%; 
+        vertical-align:middle;
+    }
+    .breakword{
+    	word-wrap:break-word;  
+    	word-break:break-all;  
+    	overflow: hidden; 
+    }
+    .pic:hover{
+    	transition: all 1.0s;
+		transform:rotate(360deg);
+		-ms-transform:rotate(360deg); /* IE 9 */
+		-moz-transform:rotate(360deg); /* Firefox */
+		-webkit-transform:rotate(360deg); /* Safari 和 Chrome */
+		-o-transform:rotate(360deg); /* Opera */
+		}
+	.pic{
+    	transition: all 1.0s;
+		transform:rotate(0deg);
+		-ms-transform:rotate(0deg); /* IE 9 */
+		-moz-transform:rotate(0deg); /* Firefox */
+		-webkit-transform:rotate(0deg); /* Safari 和 Chrome */
+		-o-transform:rotate(0deg); /* Opera */
+		}
+		.banner{
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 100%;
+  height: 100%;
+  top:0px;
+  margin: 0 auto;
+  position: relative;
+  background-size: cover;
+}
+.banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    background-attachment: fixed;
+    
+}
+@media(max-width: 678px){}
+.thumb a{height:260px;position:relative;display:block;background-repeat:no-repeat;background-size:cover}
+	body{
+		margin:0;
+		padding:0;
+		overflow-x:hidden;
+	}
+    .complete{
+        filter: blur(0);
+    }
+    img::after {
+            content: "";
+            height: 100%;
+            width: 100%;
+            max-width: 100%;
+		    max-height: 100%;  
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: url() no-repeat center;
+        }
+
+    .slidea{
+			min-height: 72px; height: 168px;
+    }
+
+.scrollbar{
+
+    width: 30px;
+
+    height: 300px;
+
+    margin: 0 auto;
+
+ 
+
+}
+
+::-webkit-scrollbar {/*滚动条整体样式*/
+
+        width: 10px;     /*高宽分别对应横竖滚动条的尺寸*/
+
+        height: 5px;
+
+    }
+
+::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+
+        border-radius: 10px;
+
+         -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+
+        background: #777777;
+
+    }
+
+::-webkit-scrollbar-track {/*滚动条里面轨道*/
+
+        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+
+        border-radius: 10px;
+
+        background: #EDEDED;
+
+    }
+    .banner{
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      width: 100%;
+      height: 100%;
+      top:0px;
+      margin: 0 auto;
+      position: relative;
+      background-size: cover;
+    }
+    .banner::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 0;
+        background-attachment: fixed;
+    }
+    .top{
+    	position: absolute;
+    	  top: 20%;
+    	  left: 50%;
+    	  margin-left: -25rem;
+    	  margin-top: -3.5rem;
+    	  width: 32rem;
+    	  height: 7rem;
+    	  z-index:102;
+
+    }
+    .top-head{
+    			position:fixed;
+          width:100%;
+          height:auto;
+          background:#ffc;
+          overflow-y:auto;
+          min-height: 20px;
+          line-height: 40px;
+          top:0;
+          opacity:0.7;
+          z-index:100000;
+    		}
+
+.text-black{
+	color:#000;
+}
