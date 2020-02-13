@@ -17,6 +17,8 @@
     <script data-ad-client="ca-pub-7564284646329791" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- ad -->
     <script src="<?php $this->options->themeUrl('./assets/js/jquery.min.js'); ?>"></script>
+    <script src="<?php $this->options->themeUrl('./assets/js/jquery.pjax.js'); ?>"></script>
+    
     <link href="<?php $this->options->logoUrl() ?>" rel="icon" type="image/png" />
     <!-- Fonts -->
     <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">-->
@@ -27,17 +29,11 @@
     <link type="text/css" href="<?php $this->options->themeUrl('./assets/css/argon.css?v=1.0.0'); ?>" rel="stylesheet" />
     <!-- Docs CSS -->
     <link rel="stylesheet" href="<?php $this->options->themeUrl('./assets/css/index.css'); ?>" />
+    <link rel="stylesheet" href="<?php $this->options->themeUrl('./assets/css/style.css'); ?>" />
     <link rel="stylesheet" href="<?php $this->options->themeUrl('./assets/css/csshake.min.css'); ?>" />
     <link href="<?php $this->options->themeUrl('./assets/css/font.css'); ?>" rel="stylesheet" />
     <script src="<?php $this->options->themeUrl('./assets/js/lazyload.js'); ?>" charset="utf-8"></script>
-    <style>
-    .banner::before{background-image: url(<?php $this->options->themeUrl('./assets/css/ground.png'); ?>);}
-    .shape-background{
-    background: url( <?php if($this->is('page') or $this->is('post')){ echo($this->fields->pic ? $this->fields->pic:$this->options->randompicUrl() . "?_=" . mt_rand());}else{echo($this->options->pcbackgroundUrl());} ?>) center center / cover no-repeat fixed;
-    height: 100%; width: 100%; overflow: hidden;
-    }
-    @media(max-width: 678px){.shape-background{background: url(<?php if($this->is('page') or $this->is('post')){ echo($this->fields->pic ? $this->fields->pic:$this->options->randompicUrl() . "?_=" . mt_rand());}else{echo($this->options->mobilebackgroundUrl());} ?>) center center / cover no-repeat fixed;}}
-	</style>
+    <script src="<?php $this->options->themeUrl('./assets/js/functions.js'); ?>"></script>
     <!--[if lt IE 9]>
     <script src="//cdnjscn.b0.upaiyun.com/libs/html5shiv/r29/html5.min.js"></script>
     <script src="//cdnjscn.b0.upaiyun.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -47,11 +43,12 @@
     <?php $this->header(); ?>
 </head>
 <body>
+
 <!--[if lt IE 8]>
     <div class="browsehappy" role="dialog"><?php _e('当前网页 <strong>不支持</strong> 你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>'); ?>.</div>
 <![endif]-->
 <header class="header-global">
-    <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom  headroom--not-bottom headroom--pinned <?php if ( $this->is('index') or  $this->is('post')) : ?> bg-infoheadroom--top <?php else: ?> headroom--not-top bg-info alpha-4<?php endif; ?>">
+    <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light">
       <div class="container">
         <?php if ($this->options->logoUrl): ?>
 <a id="logo" href="<?php $this->options->siteUrl(); ?>" class="navbar-brand mr-lg-5">
@@ -143,13 +140,13 @@
             </li>
             
             <li class="nav-item d-none d-lg-block ml-lg-4">
-              <a class="nav-link nav-link-icon" href="<?php $this->options->feedUrl(); ?>" target="_blank" data-toggle="tooltip" title="" data-original-title="文章RSS">
+              <a no-pjax class="nav-link nav-link-icon" href="<?php $this->options->feedUrl(); ?>" target="_blank" data-toggle="tooltip" title="" data-original-title="文章RSS">
                 <i class="fa fa-rss"></i>
                 <span class="nav-link-inner--text d-lg-none">RSS</span>
               </a>
             </li>
             <li class="nav-item d-none d-lg-block ml-lg-4">
-              <a class="nav-link nav-link-icon" href="<?php $this->options->commentsFeedUrl(); ?>" target="_blank" data-toggle="tooltip" title="" data-original-title="评论RSS">
+              <a no-pjax class="nav-link nav-link-icon" href="<?php $this->options->commentsFeedUrl(); ?>" target="_blank" data-toggle="tooltip" title="" data-original-title="评论RSS">
                 <i class="fa fa-rss-square"></i>
                 <span class="nav-link-inner--text d-lg-none">RSS</span>
               </a>
@@ -159,3 +156,12 @@
       </div>
     </nav>
     </header>
+<div id="main">
+<style>
+    .banner::before{background-image: url(<?php $this->options->themeUrl('./assets/css/ground.png'); ?>);}
+    .shape-background{
+    background: url( <?php if($this->is('page') or $this->is('post')){ echo($this->fields->pic ? $this->fields->pic:$this->options->randompicUrl() . "?_=" . mt_rand());}else{echo($this->options->pcbackgroundUrl());} ?>) center center / cover no-repeat fixed;
+    height: 100%; width: 100%; overflow: hidden;
+    }
+    @media(max-width: 678px){.shape-background{background: url(<?php if($this->is('page') or $this->is('post')){ echo($this->fields->pic ? $this->fields->pic:$this->options->randompicUrl() . "?_=" . mt_rand());}else{echo($this->options->mobilebackgroundUrl());} ?>) center center / cover no-repeat fixed;}}
+</style>

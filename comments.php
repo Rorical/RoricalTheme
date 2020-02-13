@@ -1,5 +1,6 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 
+<?php $this->comments()->to($comments); ?>
 <div class="container card shadow py-5 comments">
 	<div class="d-flex px-3">
               <div>
@@ -11,7 +12,7 @@
                 <h4 class="display-3">评论区</h4>
                 <p><?php $this->commentsNum('完全没人呢', '只有一个人', '%d 条评论呢 '); ?></p>
             </div>
-                        <?php $this->comments()->to($comments); ?>
+                        
             
 <?php function threadedComments($comments, $options) {
 	
@@ -67,34 +68,39 @@ echo $commentClass;
                   </div>
                   </div>
                   <?php if ($comments->children) { ?>
-                  <? if($comments->sequence<2){ ?>
+                  <? if($comments->levels<1){ ?>
                   
                   <?php $comments->threadedComments($options); ?>
                   </div>
 					</div>
+					
                   <? }else{ ?>
         		</div>
 				</div>
 				<?php $comments->threadedComments($options); ?>
+				
         		  <? } ?>
+        		  
         		  <? }else{ ?>
+        		  
         		</div>
 				</div>
+				
 				<?php } ?>
 <?php } ?>
 
         </div>
+        <div id="comment-refresh">
         <?php $comments->listComments(); ?>
-        
+        </div>
         <?php if($this->allow('comment')): ?>
-        <div id="<?php $this->respondId(); ?>" class="py-3">
+        <div id="<?php $this->respondId(); ?>" class="py-3 comment-text">
         
         <form method="post" action="<?php $this->commentUrl() ?>" id="comment-form" role="form"> 
         <div class="container mt-5">
         <div class="card bg-gradient-warning shadow-lg border-0">
           <div class="p-5">
             <div class="row align-items-center">
-            
               <div class="col-lg-8">
                 <h3 class="text-white"><?php _e('添加新评论'); ?></h3>
                 <?php if($this->user->hasLogin()): ?>
@@ -140,21 +146,137 @@ echo $commentClass;
 	
     <?php $this->comments()->to($comments); ?>
     <?php if ($comments->have()): ?>
-    <?php $comments->pageNav('&laquo; 前一页', '后一页 &raquo;'); ?>
+    <?php $comments->pageNav('<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>', 1, '...', array('wrapTag' => 'ul', 'wrapClass' => 'pagination agination-lg justify-content-center', 'itemTag' => 'li', 'textTag' => 'a', 'currentClass' =>  'page-item active','prevClass' => 'page-item','nextClass' => 'page-item','linkClass' => 'page-link','itemClass' => 'page-item')); ?>
 
     <?php endif; ?>
 
 
-    <div id="<?php $this->respondId(); ?>" class="respond">
-        <div class="cancel-comment-reply">
-        <?php $comments->cancelReply(); ?>
-        </div>
-            
-    </div>
+
     
     
 </div>
 </div>
 
 
+	<?php 
+	$comment_init="<script>var r = document.getElementById('{$this->respondId}'),
+        input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = '_';
+        input.value = " . Typecho_Common::shuffleScriptVar(
+            $this->security->getToken(clear_urlcan($this->request->getRequestUrl()))) . "
+
+        if (null != r) {
+            var forms = r.getElementsByTagName('form');
+            if (forms.length > 0) {
+                forms[0].appendChild(input);
+            }
+        }</script>";
+	echo $comment_init;
+        $this->pluginHandle()->header($comment_init, $this);
+    echo '<script>
+    function bindsubmit(){
+		$("#comment-form").submit(function() { 
+			$.ajax({
+            url: $(this).attr("action"),
+            type: $(this).attr("method"),
+            data: $(this).serializeArray(),
+            error: function() {
+                
+            },
+            success: function(data) { 
+                var parser = new DOMParser()
+                var htmlDoc = parser.parseFromString(data, "text/html")
+                ele = document.getElementsByClassName("comment-text")[0]
+                elehtml = document.getElementsByClassName("comment-text")[0].innerHTML
+                document.getElementById("comment-refresh").innerHTML = htmlDoc.getElementById("comment-refresh").innerHTML
+                if(!document.getElementsByClassName("comment-text")[0]){
+                	ele.innerHTML=elehtml
+                	ele.children[0].children[0].children[0].children[0].children[0].getElementsByClassName("col-lg-3")[0].getElementsByClassName("cancel-comment-reply")[0].children[0].style.cssText="display:none;"
+                	
+                	document.getElementsByClassName("comments")[0].appendChild(ele)
+                	bindsubmit()
+                }
+                
+                
+            }
+        })
+        return false;
+		})
+		}
+		bindsubmit()
+		
+    window.onload()
+    </script>';
+    echo "<script type=\"text/javascript\">(function () {
+    window.TypechoComment = {
+        dom : function (id) {
+            return document.getElementById(id);
+        },
+    
+        create : function (tag, attr) {
+            var el = document.createElement(tag);
+        
+            for (var key in attr) {
+                el.setAttribute(key, attr[key]);
+            }
+        
+            return el;
+        },
+
+        reply : function (cid, coid) {
+            var comment = this.dom(cid), parent = comment.parentNode,
+                response = this.dom('" . $this->respondId . "'), input = this.dom('comment-parent'),
+                form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
+                textarea = response.getElementsByTagName('textarea')[0];
+
+            if (null == input) {
+                input = this.create('input', {
+                    'type' : 'hidden',
+                    'name' : 'parent',
+                    'id'   : 'comment-parent'
+                });
+
+                form.appendChild(input);
+            }
+
+            input.setAttribute('value', coid);
+
+            if (null == this.dom('comment-form-place-holder')) {
+                var holder = this.create('div', {
+                    'id' : 'comment-form-place-holder'
+                });
+
+                response.parentNode.insertBefore(holder, response);
+            }
+
+            comment.appendChild(response);
+            this.dom('cancel-comment-reply-link').style.display = '';
+
+            if (null != textarea && 'text' == textarea.name) {
+                textarea.focus();
+            }
+
+            return false;
+        },
+
+        cancelReply : function () {
+            var response = this.dom('{$this->respondId}'),
+            holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent');
+
+            if (null != input) {
+                input.parentNode.removeChild(input);
+            }
+
+            if (null == holder) {
+                return true;
+            }
+
+            this.dom('cancel-comment-reply-link').style.display = 'none';
+            holder.parentNode.insertBefore(response, holder);
+            return false;
+        }
+    };
+})();</script>"
+        ?>
 

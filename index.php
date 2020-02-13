@@ -10,7 +10,9 @@
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 $this->need('header.php');
 ?>
-<section class="section-hero section-shaped my-0" > 
+
+	<script>page = 0</script>
+<section class="section-hero section-shaped my-0"> 
      <div class="shape shape-style-1 shape-background banner"> 
       <span class="span-150"></span> 
       <span class="span-50"></span> 
@@ -96,5 +98,5 @@ $this->need('header.php');
 		</nav>
       <? if($this->_currentPage>1) echo("<script>$('html,body').animate({ scrollTop: $('.section.section-components.bg-secondary').offset().top }, 500)</script>") ?>
     </section>
-<?php $this->need('footer.php');
-?>
+
+<?php $this->need('footer.php');?>

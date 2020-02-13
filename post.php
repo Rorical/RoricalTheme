@@ -1,6 +1,7 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 <?php $this->need('header.php'); ?>
 
+	<script>page = 0</script>
 <main class="profile-page">
     <section class="section-profile-cover section-shaped my-0">
       <!-- Circles background -->
@@ -93,4 +94,5 @@
 
 
 <?php $this->need('sidebar.php'); ?>
+
 <?php $this->need('footer.php'); ?>
