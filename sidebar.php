@@ -33,7 +33,7 @@
         	<h3>
         <span><?php _e('最近回复'); ?></span>
     	</h3>
-        <?php $this->widget('Widget_Comments_Recent','ignoreAuthor=true','pageSize=3')->to($comments); ?>
+        <?php $this->widget('Widget_Comments_Recent','ignoreAuthor=true&pageSize=3')->to($comments); ?>
         <?php while($comments->next()): ?>
         	<a href="<?php $comments->permalink(); ?>" class="alert alert-dismissible fade show" role="alert"><div class="alert alert-warning alert-dismissible">
         				<span class="alert-inner--text"><strong><?php $comments->author(false); ?></strong>: <?php $comments->excerpt(19, '...'); ?></span>

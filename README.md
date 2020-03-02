@@ -8,7 +8,9 @@
  本人还是CSS和PHP渣，所以这次的目的是打造一个轻量的主题，没有那么多的功能，所以想要多功能主题的小伙伴请找找别的主题吧！
  另外本主题还是在测试的阶段，所以有什么想法可以提出来，一起努力完善她！
 
-推荐使用EditorMD和CodePrettify来完成MD写作和代码高亮，也可以使用Links友情链接插件，以上插件适合于Rorical的魔改版[在这里](https://github.com/Liupaperbox/rorical-plugin/)
+代码高亮已集成到主题，推荐使用Editor.md来写文章
+
+*看到记得提醒我去修Bug
 
 博客链接[Rorical](https://blog.boxpaper.club/)
 

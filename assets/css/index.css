@@ -11,7 +11,7 @@
     .blackback{
     	background: rgba(0, 0, 0, 0.1);
     }
-    .md_content img{
+    .content img{
     	max-width: 65%;
     	margin: auto 15%;
     	position: relative;
@@ -186,7 +186,7 @@
     		}
 
 .text-black{
-	color:#000;
+	color:#666;
 }
 .center{
 	text-align: center;
@@ -200,4 +200,8 @@
 .blur{
 	transition: all 0.4s;
 	filter: blur(4px);
+}
+blockquote{
+	border-left: 2px solid rgba(136,152,170,.32);
+    padding-left: 1rem;
 }

@@ -16,7 +16,17 @@
   <script src="<?php $this->options->themeUrl('./assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js'); ?>"></script>
   <!-- Argon JS -->
   <script src="<?php $this->options->themeUrl('./assets/js/argon.js?v=1.0.0'); ?>"></script>
-
+  <script type="text/javascript">
+	(function(){
+		var pres = document.querySelectorAll('pre');
+		var lineNumberClassName = 'line-numbers';
+		pres.forEach(function (item, index) {
+			item.className = item.className == '' ? lineNumberClassName : item.className + ' ' + lineNumberClassName;
+		});
+	})();
+</script>
+	<script src="<?php $this->options->themeUrl('./assets/js/prism.js'); ?>"></script>
+	<script src="<?php $this->options->themeUrl('./assets/js/clipboard.min.js'); ?>"></script>
   <script type="text/javascript">
   show()
   $(document).ready(function(){ 
@@ -51,6 +61,12 @@
     		}else{
     			$("#navbar-main").removeClass("bg-info alpha-4")
     		}
+    		Prism.highlightAll(true,null);
+    		var pres = document.querySelectorAll('pre');
+			var lineNumberClassName = 'line-numbers';
+			pres.forEach(function (item, index) {
+				item.className = item.className == '' ? lineNumberClassName : item.className + ' ' + lineNumberClassName;
+			});
     		hide()
 		})
 		$("#search").submit(function() {

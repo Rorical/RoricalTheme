@@ -129,7 +129,7 @@ echo $commentClass;
               </div>
               
               <div class="col-lg-3 ml-lg-auto mt-3">
-                <button class="btn btn-lg btn-block btn-white" type="submit" class="submit">提交！</button>
+                <button class="btn btn-lg btn-block btn-white" type="submit" id="add-comment-button">提交！</button>
                 <div class="cancel-comment-reply mt-5 align-items-center">
         			<?php $comments->cancelReply("取消回复","btn btn-danger"); ?>
         		</div>
@@ -176,11 +176,15 @@ echo $commentClass;
         $this->pluginHandle()->header($comment_init, $this);
     echo '<script>
     function bindsubmit(){
-		$("#comment-form").submit(function() { 
+		$("#comment-form").submit(function() {
+			$("#add-comment-button").attr("disabled",true);
 			$.ajax({
             url: $(this).attr("action"),
             type: $(this).attr("method"),
             data: $(this).serializeArray(),
+            complete: function(){
+            	$("#add-comment-button").attr("disabled",false);	
+            },
             error: function() {
                 
             },

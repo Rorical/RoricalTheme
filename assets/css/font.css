@@ -2,11 +2,11 @@
 @font-face {font-family: "SourceHanSansCN";
   src: url('./SourceHanSansCN-Normal.ttf') format('truetype');
 }
-.md_content p {
+.content p {
   font-family:"SourceHanSansCN" !important;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 .comments p {
 	font-family:"SourceHanSansCN" !important;
-	font-size: 1.2rem;
+	font-size: 0.9rem;
 }

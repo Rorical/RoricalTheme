@@ -13,9 +13,14 @@
             'tag'       =>  _t('标签 %s 下的文章'),
             'author'    =>  _t('%s 的文章')
         ), '', ' - '); ?><?php $this->options->title(); ?></title>
-    <!-- ad -->
-    <script data-ad-client="ca-pub-7564284646329791" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- ad -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-159010258-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'UA-159010258-1');
+	</script>
     <script src="<?php $this->options->themeUrl('./assets/js/jquery.min.js'); ?>"></script>
     <script src="<?php $this->options->themeUrl('./assets/js/jquery.pjax.js'); ?>"></script>
     
@@ -38,7 +43,7 @@
     <script src="//cdnjscn.b0.upaiyun.com/libs/html5shiv/r29/html5.min.js"></script>
     <script src="//cdnjscn.b0.upaiyun.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-
+	<link rel="stylesheet" href="<?php $this->options->themeUrl('./assets/css/okaikia.css'); ?>" />
     <!-- 通过自有函数输出HTML头部信息 -->
     <?php $this->header(); ?>
 </head>

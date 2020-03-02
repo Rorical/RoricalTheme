@@ -29,7 +29,7 @@
               <div class="col-lg-6">
                 <div class="card-profile-stats d-flex justify-content-center">
                   <div>
-                    <span class="heading"><?php get_post_view($this) ?></span>
+                    <span class="heading"><?php echo ViewsCounter_Plugin::getViews(); ?></span>
                     <span class="description">观看次数</span>
                   </div>
                   <div>
@@ -58,7 +58,7 @@
             
             <div class="mt-5 py-5 border-top">
               <div class="row justify-content-center">
-                <div class="col-lg-9 breakword">
+                <div class="col-lg-9 breakword content">
                   <?php $this->content(); ?>
                   
                 </div>

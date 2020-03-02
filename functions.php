@@ -123,22 +123,7 @@ function  art_count ($cid){
     $text = preg_replace("/[^\x{4e00}-\x{9fa5}]/u", "", $rs['text']);
     echo mb_strlen($text,'UTF-8');
 }
-function get_post_view($archive)
-{
-	$cid = $archive->cid;
-	$db = Typecho_Db::get();
-	$prefix = $db->getPrefix();
-	if (!array_key_exists('views', $db->fetchRow($db->select()->from('table.contents')))) {
-		$db->query('ALTER TABLE `' . $prefix . 'contents` ADD `views` INT(10) DEFAULT 0;');
-		echo 0;
-		return;
-	}
-	$row = $db->fetchRow($db->select('views')->from('table.contents')->where('cid = ?', $cid));
-	if ($archive->is('single')) {
-		$db->query($db->update('table.contents')->rows(array('views' => (int) $row['views'] + 1))->where('cid = ?', $cid));
-	}
-	echo $row['views'];
-}
+
 function themeInit($archive)
 {
  Helper::options()->commentsMaxNestingLevels = 999;//正常设置最高只有7层
