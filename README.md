@@ -8,7 +8,7 @@
  本人还是CSS和PHP渣，所以这次的目的是打造一个轻量的主题，没有那么多的功能，所以想要多功能主题的小伙伴请找找别的主题吧！
  另外本主题还是在测试的阶段，所以有什么想法可以提出来，一起努力完善她！
 
-代码高亮已集成到主题，推荐使用Editor.md来写文章
+代码高亮已集成到主题，推荐使用Editor.md来写文章，文章浏览次数统计基于[quarkay](https://www.quarkay.com/)的[ViewsCounter](https://github.com/Quarkay/Typecho-ViewsCounter)，请一并食用
 
 *看到记得提醒我去修Bug
 
