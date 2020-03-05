@@ -1,4 +1,11 @@
-<?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
+<?php
+/**
+ * 友情链接
+ *
+ * @package custom
+ */
+ ?>
+ <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 <?php $this->need('header.php'); ?>
 
 	<script>page = 1</script>
@@ -42,25 +49,12 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6 text-lg-right align-self-lg-center">
-                <div class="card-profile-actions card-profile-stats d-flex justify-content-center">
-                	<? if (count($this->tags)>0): ?>
-        			<?php foreach( $this->tags as $tags): ?>
-        			<a href="<? print($tags['permalink']) ?>" class="btn btn-sm btn-info mr-4"><? print($tags['name']) ?></a>
-        			<?php endforeach; ?>
-        			<?php else: ?>
-        			<a class="btn btn-sm btn-info mr-4">无标签..</a>
-        			<?php endif; ?>
-        			<?php print($this->widget('Widget_Metas_Category_List')->parse('<a href="{permalink}" class="btn btn-sm btn-default float-right">{name}</a>')) ?>
-                </div>
-              </div>
             </div>
             
             <div class="mt-5 py-5 border-top">
               <div class="row justify-content-center">
                 <div class="col-lg-9 breakword content">
                   <?php $this->content(); ?>
-                  
                 </div>
               </div>
             </div>
@@ -72,6 +66,21 @@
         </div>
       </div>
     </section>
+    <script>
+    
+    $("div#list").each(function(){
+    	$(this).children("ul").each(function(){
+    		title = $(this).children("li.title").text()
+    		url = $(this).children("li.url").text()
+    		img = $(this).children("li.img").text()
+    		dec = $(this).children("li.dec").text()
+    		inner = '<div class="col-md-3 mb-5 mb-md-0 border-0 "><div class="card shadow containter py-2 text-center card-lift--hover"><a href="' + url + '" target="_blank" style="padding-top: 2rem !important"><div class="icon icon-shape rounded-circle text-white mb-3" style="background:url(' + img + ') center center / cover no-repeat;"></div><h6>' + title + '</h6><p class="description">' + dec + '</p></div></div>'
+    		$(this).parent().append(inner);
+    		$(this).remove()
+		})
+		$(this).addClass("container container-lg py-5 row")
+    })
+    </script>
     <?php $this->need('comments.php'); ?>
   </main>
 

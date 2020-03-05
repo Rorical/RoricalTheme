@@ -59,8 +59,64 @@
             <div class="mt-5 py-5 border-top">
               <div class="row justify-content-center">
                 <div class="col-lg-9 breakword content">
-                  <?php $this->content(); ?>
-                  
+                <? if($this->hidden){ ?>
+					<div class="container text-center">
+						<form class="protected" id="protected" action="<?php $this -> permalink() ?>" method="post">
+							<p class="lead">写一下密码啦</p>
+							<div class="row justify-content-md-center">
+								<div class="col col-10">
+									<input class="form-control" type="password" name="protectPassword" id="protectPassword" placeholder="请输入密码">
+								</div>
+								<div class="col-md-auto">
+									<button type="submit" class="btn btn-info" id="protectButton">确认</button>
+								</div>
+							</div>
+						</form>
+						<script>
+						$("#protectPassword").on('focus',function(){
+							$(this).removeClass("is-invalid")
+            			})
+						$("#protected").submit(function() {
+							var secr = <? echo Typecho_Common::shuffleScriptVar(
+            $this->security->getToken(clear_urlcan($this->request->getRequestUrl()))); ?>
+							$("#protectButton").attr("disabled",true);
+							$.ajax({
+            					url: $(this).attr("action") + "?_=" + secr,
+            					type: $(this).attr("method"),
+            					data: $(this).serializeArray(),
+            					complete: function(){
+            						$("#protectButton").attr("disabled",false);	
+            					},
+            					error: function() {
+                					
+            					},
+            					success: function(data) {
+            						if(data){
+            							var parser = new DOMParser()
+                						var htmlDoc = parser.parseFromString(data, "text/html")
+                						if(htmlDoc.title=="Error"){
+                							$("#protectPassword").addClass("is-invalid")
+                							
+                						}else{
+                							$("#protectPassword").addClass("is-valid")
+                							$("#protected").fadeOut();
+                							setTimeout(function(){
+                								$("title").html(htmlDoc.title)
+                								$("#main").html(htmlDoc.getElementById("main").innerHTML)
+                							},1000)
+                							
+                						}
+            						}
+            					}
+							})
+							return false
+						})
+						
+						</script>
+					</div>
+				<? }else{ ?>
+                	<?php $this->content(); ?>
+                <? } ?>
                 </div>
               </div>
             </div>
@@ -88,7 +144,7 @@
       </div>
     </div>
     </section>
-    <?php $this->need('comments.php'); ?>
+    <? if(!$this->hidden) $this->need('comments.php'); ?>
   </main>
 
 

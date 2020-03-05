@@ -138,7 +138,7 @@
               </a>
           	</li>
             <li class="nav-item d-none d-lg-block ml-lg-4">
-              <a class="nav-link nav-link-icon" href="http://wpa.qq.com/msgrd?v=3&uin=<?php $this->options->QQ(); ?>&site=qq&menu=yes" target="_blank" data-toggle="tooltip" title="" data-original-title="快速联系！">
+              <a class="nav-link nav-link-icon" href="tencent://message/?Menu=yes&uin=<?php $this->options->QQ(); ?>&Site=&Service=201&sigT=&sigU=" data-toggle="tooltip" title="" data-original-title="快速联系！">
                 <i class="fa fa-qq"></i>
                 <span class="nav-link-inner--text d-lg-none">QQ</span>
               </a>

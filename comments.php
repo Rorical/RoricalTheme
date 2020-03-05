@@ -141,24 +141,12 @@ echo $commentClass;
       </form>
       </div>
       <?php endif; ?>
-        
-        <div id="comments" class="card-body">
-	
-    <?php $this->comments()->to($comments); ?>
+        <div id="comments" class="card-body"><?php 
+     $this->comments()->to($comments); ?>
     <?php if ($comments->have()): ?>
     <?php $comments->pageNav('<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>', 1, '...', array('wrapTag' => 'ul', 'wrapClass' => 'pagination agination-lg justify-content-center', 'itemTag' => 'li', 'textTag' => 'a', 'currentClass' =>  'page-item active','prevClass' => 'page-item','nextClass' => 'page-item','linkClass' => 'page-link','itemClass' => 'page-item')); ?>
-
-    <?php endif; ?>
-
-
-
-    
-    
-</div>
-</div>
-
-
-	<?php 
+<?php endif; ?></div>
+</div><?php 
 	$comment_init="<script>var r = document.getElementById('{$this->respondId}'),
         input = document.createElement('input');
         input.type = 'hidden';
@@ -173,7 +161,7 @@ echo $commentClass;
             }
         }</script>";
 	echo $comment_init;
-        $this->pluginHandle()->header($comment_init, $this);
+    echo $this->pluginHandle()->header($comment_init, $this);
     echo '<script>
     function bindsubmit(){
 		$("#comment-form").submit(function() {
@@ -189,8 +177,10 @@ echo $commentClass;
                 
             },
             success: function(data) { 
+            	console.log(data)
                 var parser = new DOMParser()
                 var htmlDoc = parser.parseFromString(data, "text/html")
+                if(htmlDoc.getElementById("comment-refresh")){
                 ele = document.getElementsByClassName("comment-text")[0]
                 elehtml = document.getElementsByClassName("comment-text")[0].innerHTML
                 document.getElementById("comment-refresh").innerHTML = htmlDoc.getElementById("comment-refresh").innerHTML
@@ -201,7 +191,7 @@ echo $commentClass;
                 	document.getElementsByClassName("comments")[0].appendChild(ele)
                 	bindsubmit()
                 }
-                
+                }
                 
             }
         })
@@ -210,7 +200,6 @@ echo $commentClass;
 		}
 		bindsubmit()
 		
-    window.onload()
     </script>';
     echo "<script type=\"text/javascript\">(function () {
     window.TypechoComment = {
@@ -281,6 +270,8 @@ echo $commentClass;
             return false;
         }
     };
-})();</script>"
+})();
+window.onload()
+</script>"
         ?>
 

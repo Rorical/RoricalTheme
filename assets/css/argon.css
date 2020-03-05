@@ -1910,15 +1910,15 @@ pre code
     }
 }
 
-.table
+table
 {
     width: 100%;
     margin-bottom: 1rem;
 
     background-color: transparent;
 }
-.table th,
-.table td
+table th,
+table td
 {
     padding: 1rem;
 
@@ -1926,17 +1926,17 @@ pre code
 
     border-top: .0625rem solid #dee2e6;
 }
-.table thead th
+table thead th
 {
     vertical-align: bottom;
 
     border-bottom: .125rem solid #dee2e6;
 }
-.table tbody + tbody
+table tbody + tbody
 {
     border-top: .125rem solid #dee2e6;
 }
-.table .table
+table table
 {
     background-color: #fff;
 }

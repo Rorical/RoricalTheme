@@ -16,20 +16,60 @@
   <script src="<?php $this->options->themeUrl('./assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js'); ?>"></script>
   <!-- Argon JS -->
   <script src="<?php $this->options->themeUrl('./assets/js/argon.js?v=1.0.0'); ?>"></script>
+  <script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
   <script type="text/javascript">
-	(function(){
-		var pres = document.querySelectorAll('pre');
-		var lineNumberClassName = 'line-numbers';
-		pres.forEach(function (item, index) {
-			item.className = item.className == '' ? lineNumberClassName : item.className + ' ' + lineNumberClassName;
+	let isMathjaxConfig = false; // 防止重复调用Config，造成性能损耗
+
+	const initMathjaxConfig = () => {
+	if (!window.MathJax) {
+    	return;
+	}
+	window.MathJax.Hub.Config({
+    	showProcessingMessages: false, //关闭js加载过程信息
+    	messageStyle: "none", //不显示信息
+    	jax: ["input/TeX", "output/HTML-CSS"],
+    	tex2jax: {
+    		inlineMath: [["$", "$"], ["\\(", "\\)"]], //行内公式选择符
+    		displayMath: [["$$", "$$"], ["\\[", "\\]"]], //段内公式选择符
+    		skipTags: ["script", "noscript", "style", "textarea", "pre", "code", "a"] //避开某些标签
+    	},
+    	"HTML-CSS": {
+    	availableFonts: ["STIX", "TeX"], //可选字体
+    		showMathMenu: false //关闭右击菜单显示
+    	}
 		});
-	})();
+		isMathjaxConfig = true; // 
+		};
+  function init(){
+  	Prism.highlightAll(true,null);
+    var pres = document.querySelectorAll('pre');
+	var lineNumberClassName = 'line-numbers';
+	pres.forEach(function (item, index) {
+		item.className = item.className == '' ? lineNumberClassName : item.className + ' ' + lineNumberClassName;
+	});
+	
+	/*emj*/
+	emojify.run();
+	
+	if (isMathjaxConfig === false) { // 如果：没有配置MathJax
+		initMathjaxConfig();
+	}
+	try{
+		window.MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('main')]);
+		window.onload()
+	}catch{
+		
+	}
+	
+  }
 </script>
 	<script src="<?php $this->options->themeUrl('./assets/js/prism.js'); ?>"></script>
 	<script src="<?php $this->options->themeUrl('./assets/js/clipboard.min.js'); ?>"></script>
   <script type="text/javascript">
   show()
-  $(document).ready(function(){ 
+  $(document).ready(function(){
 	hide()
 	});
 	$(function() {
@@ -46,6 +86,7 @@
     			$("#navbar-main").removeClass("bg-info alpha-4")
     		}
       $("img").lazyload({effect: "fadeIn", threshold :700});
+      
       $(document).pjax('a[href^="<?php Helper::options()->siteUrl()?>"]:not(a[target="_blank"], a[no-pjax])',
 		{
     		container: '#main',
@@ -61,12 +102,7 @@
     		}else{
     			$("#navbar-main").removeClass("bg-info alpha-4")
     		}
-    		Prism.highlightAll(true,null);
-    		var pres = document.querySelectorAll('pre');
-			var lineNumberClassName = 'line-numbers';
-			pres.forEach(function (item, index) {
-				item.className = item.className == '' ? lineNumberClassName : item.className + ' ' + lineNumberClassName;
-			});
+    		init()
     		hide()
 		})
 		$("#search").submit(function() {
@@ -83,7 +119,7 @@
 			}
 			return false;
 		});
-		
+		init()
 	});
 	
 </script>
