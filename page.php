@@ -59,7 +59,7 @@
             <div class="mt-5 py-5 border-top">
               <div class="row justify-content-center">
                 <div class="col-lg-9 breakword content">
-                  <?php $this->content(); ?>
+                  <?php $content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i',"<img\$1data-original=\"\$2\" \$3>\n<noscript>\$0</noscript>",$this->content); echo $content ?>
                   
                 </div>
               </div>
@@ -72,7 +72,7 @@
         </div>
       </div>
     </section>
-    <?php $this->need('comments.php'); ?>
+    <?php if(!$this->hidden && $this->allow('comment')) $this->need('comments.php'); ?>
   </main>
 
 <?php $this->need('sidebar.php'); ?>

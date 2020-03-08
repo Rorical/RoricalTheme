@@ -60,8 +60,10 @@
               <div class="row justify-content-center">
                 <div class="col-lg-9 breakword content">
                 <? if($this->hidden){ ?>
+                
 					<div class="container text-center">
 						<form class="protected" id="protected" action="<?php $this -> permalink() ?>" method="post">
+							<textarea name="text" style="display:none;"></textarea>
 							<p class="lead">写一下密码啦</p>
 							<div class="row justify-content-md-center">
 								<div class="col col-10">
@@ -115,7 +117,7 @@
 						</script>
 					</div>
 				<? }else{ ?>
-                	<?php $this->content(); ?>
+                	<?php $content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i',"<img\$1data-original=\"\$2\" \$3>\n<noscript>\$0</noscript>",$this->content); echo $content ?>
                 <? } ?>
                 </div>
               </div>
@@ -144,7 +146,7 @@
       </div>
     </div>
     </section>
-    <? if(!$this->hidden) $this->need('comments.php'); ?>
+    <? if(!$this->hidden && $this->allow('comment')) $this->need('comments.php'); ?>
   </main>
 
 

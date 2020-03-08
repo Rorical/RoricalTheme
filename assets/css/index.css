@@ -201,7 +201,28 @@
 	transition: all 0.4s;
 	filter: blur(4px);
 }
+.noblur{
+	transition: all 0.4s;
+	filter: none;
+}
 blockquote{
 	border-left: 2px solid rgba(136,152,170,.32);
     padding-left: 1rem;
+}
+.gravatar{
+	background-image:url(https://secure.gravatar.com/avatar/);
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+#clickcanvas{
+	position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10086;
+    pointer-events: none;
+}
+#textarea{
+	background: url(paiza.gif) right bottom no-repeat;
+	background-color: white;
 }

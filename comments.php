@@ -1,6 +1,7 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 
 <?php $this->comments()->to($comments); ?>
+
 <div class="container card shadow py-5 comments">
 	<div class="d-flex px-3">
               <div>
@@ -64,6 +65,9 @@ echo $commentClass;
 						}   
 						?> 
                     <p class="breakword"><?php $comments->content(); ?></p>
+                    <?php if ($comments->status == 'waiting') { ?>
+						<span class="badge badge-pill badge-default text-white">评论审核ing...</span>
+					<?php } ?>
                     <?php $comments->reply('<i class="fa fa-reply"></i>'); ?>
                   </div>
                   </div>
@@ -108,8 +112,13 @@ echo $commentClass;
                 <?php else: ?>
                 <div class="row lead text-white mt-3">
     				<div class="col-md-4">
-    					<div class="form-group">
-        					<input class="form-control form-control-alternative" name="author" id="author" required value="<?php $this->remember('author'); ?>" placeholder="昵称">
+    					<div class="form-group input-group input-group-alternative">
+        					<div class="input-group-prepend">
+            					<span class="input-group-text" style="padding: .4rem .5rem;">
+            						<div id="author-head" class="icon-shape rounded-circle text-white gravatar" style="width: 2rem;height: 2rem;"></div>
+            						</span>
+        					</div>
+        					<input class="form-control form-control-alternative" name="author" id="author" required="" value="" placeholder="昵称">
     					</div>
     					</div>
     					<div class="col-md-4">
@@ -124,8 +133,8 @@ echo $commentClass;
     					</div>
 					</div>
 					<textarea class="form-control form-control-alternative" name="text" id="textarea" rows="8" required placeholder="写点什么吧..."></textarea>
+					
 					<?php endif; ?>
-					  
               </div>
               
               <div class="col-lg-3 ml-lg-auto mt-3">
@@ -141,28 +150,30 @@ echo $commentClass;
       </form>
       </div>
       <?php endif; ?>
-        <div id="comments" class="card-body"><?php 
-     $this->comments()->to($comments); ?>
-    <?php if ($comments->have()): ?>
-    <?php $comments->pageNav('<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>', 1, '...', array('wrapTag' => 'ul', 'wrapClass' => 'pagination agination-lg justify-content-center', 'itemTag' => 'li', 'textTag' => 'a', 'currentClass' =>  'page-item active','prevClass' => 'page-item','nextClass' => 'page-item','linkClass' => 'page-link','itemClass' => 'page-item')); ?>
-<?php endif; ?></div>
-</div><?php 
-	$comment_init="<script>var r = document.getElementById('{$this->respondId}'),
+        <div id="comments" class=""><?php $this->comments()->to($comments); ?><?php if ($comments->have()): ?><?php $comments->pageNav('<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>', 1, '...', array('wrapTag' => 'ul', 'wrapClass' => 'pagination agination-lg justify-content-center', 'itemTag' => 'li', 'textTag' => 'a', 'currentClass' =>  'page-item active','prevClass' => 'page-item','nextClass' => 'page-item','linkClass' => 'page-link','itemClass' => 'page-item')); ?><?php endif; ?></div></div>
+<script>var r = document.getElementById('<? $this->respondId() ?>'),
         input = document.createElement('input');
         input.type = 'hidden';
         input.name = '_';
-        input.value = " . Typecho_Common::shuffleScriptVar(
-            $this->security->getToken(clear_urlcan($this->request->getRequestUrl()))) . "
+        input.value = <?php echo Typecho_Common::shuffleScriptVar(
+            $this->security->getToken(clear_urlcan($this->request->getRequestUrl()))); ?>
 
         if (null != r) {
             var forms = r.getElementsByTagName('form');
             if (forms.length > 0) {
                 forms[0].appendChild(input);
             }
-        }</script>";
-	echo $comment_init;
-    echo $this->pluginHandle()->header($comment_init, $this);
-    echo '<script>
+        }
+        </script>
+    <?
+    echo $this->pluginHandle()->header("", $this);?>
+    <script>
+    $("#mail").on('blur',function(){
+    	
+    	url = "https://secure.gravatar.com/avatar/" + hex_md5($(this).val()) + "?s=40&d="
+    	$("#author-head").css('background-image','url(' + url + ')'); 
+    })
+    
     function bindsubmit(){
 		$("#comment-form").submit(function() {
 			$("#add-comment-button").attr("disabled",true);
@@ -177,7 +188,6 @@ echo $commentClass;
                 
             },
             success: function(data) { 
-            	console.log(data)
                 var parser = new DOMParser()
                 var htmlDoc = parser.parseFromString(data, "text/html")
                 if(htmlDoc.getElementById("comment-refresh")){
@@ -190,7 +200,16 @@ echo $commentClass;
                 	
                 	document.getElementsByClassName("comments")[0].appendChild(ele)
                 	bindsubmit()
+                	console.log(emojify)
+                	if(emojify){
+                		setTimeout(function() {
+                			emojify.run();
+                			
+                		}, 200);
+                	}
                 }
+                }else{
+                	
                 }
                 
             }
@@ -200,8 +219,9 @@ echo $commentClass;
 		}
 		bindsubmit()
 		
-    </script>';
-    echo "<script type=\"text/javascript\">(function () {
+    </script>
+    <script type="text/javascript">
+    (function () {
     window.TypechoComment = {
         dom : function (id) {
             return document.getElementById(id);
@@ -219,7 +239,7 @@ echo $commentClass;
 
         reply : function (cid, coid) {
             var comment = this.dom(cid), parent = comment.parentNode,
-                response = this.dom('" . $this->respondId . "'), input = this.dom('comment-parent'),
+                response = this.dom('<? $this->respondId() ?>'), input = this.dom('comment-parent'),
                 form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
                 textarea = response.getElementsByTagName('textarea')[0];
 
@@ -254,7 +274,7 @@ echo $commentClass;
         },
 
         cancelReply : function () {
-            var response = this.dom('{$this->respondId}'),
+            var response = this.dom('<? $this->respondId() ?>'),
             holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent');
 
             if (null != input) {
@@ -272,6 +292,5 @@ echo $commentClass;
     };
 })();
 window.onload()
-</script>"
-        ?>
+</script>
 

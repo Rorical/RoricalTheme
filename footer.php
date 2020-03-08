@@ -1,11 +1,28 @@
 <?php if (!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 </div>
 
-<div style="text-align:center">
-    Copyright ©  <?php echo date('Y'); ?> Boxpaper. Theme <a href="https://blog.boxpaper.club/">Rorical</a> by <a href="https://www.boxpaper.club/">boxpaper</a> <br>
-    <?php _e('由 <a href="http://www.typecho.org">Typecho</a> 强力驱动'); ?>.
-</div>
-
+<footer class="footer shadow bg-white">
+	<div class="container align-items-center justify-content-md-between">
+		<div class="row">
+    		<div class="col-md-6">
+    			Copyright ©  <?php echo date('Y'); ?> <?php $this->options->title() ?>.
+    		</div>
+    		<div class="col-md-6">
+            <ul class="nav nav-footer justify-content-end">
+				<li class="nav-item">
+					<a class="nav-link" href="<?php $this->options->siteUrl(); ?>">主页</a>
+				</li>
+				<?php $this->widget('Widget_Contents_Page_List')->to($pages); ?>
+            	<?php while($pages->next()): ?>
+            		<li class="nav-item">
+						<a class="nav-link" href="<?php $pages->permalink(); ?>"><?php $pages->title(); ?></a>
+					</li>
+            	<?php endwhile; ?>
+            </ul>
+    		</div>
+		</div>
+	</div>
+</footer>
 <?php $this->footer(); ?>
 <script src="<?php $this->options->themeUrl('./assets/vendor/popper/popper.min.js'); ?>"></script>
   <script src="<?php $this->options->themeUrl('./assets/vendor/bootstrap/bootstrap.min.js'); ?>"></script>
@@ -69,6 +86,9 @@
 	<script src="<?php $this->options->themeUrl('./assets/js/clipboard.min.js'); ?>"></script>
   <script type="text/javascript">
   show()
+  $('img[data-original]:not(img[no-viewer])').viewer({
+			url: 'data-original'
+		});
   $(document).ready(function(){
 	hide()
 	});
@@ -93,10 +113,20 @@
     		fragment: '#main',
     		timeout: 8000
 		}).on('pjax:send', function() {
+			var viewer = $('img[data-original]:not(img[no-viewer])').data('viewer');
+			if(viewer){
+				viewer.destroy()
+			}
 			show()
 		}).on('pjax:complete',
 		function() {
 			$("img").lazyload({effect: "fadeIn", threshold :700});
+			setTimeout(() => {
+				$('img[data-original]:not(img[no-viewer])').viewer({
+					url: 'data-original'
+				});
+			},300)
+			
     		if(page==1){
     			$("#navbar-main").addClass("bg-info alpha-4")
     		}else{
@@ -113,6 +143,7 @@
 			show()
 		}).on('pjax:complete',
 		function() {
+			$("img").lazyload({effect: "fadeIn", threshold :700});
     		hide()
 		})
 				}
@@ -132,6 +163,21 @@
   		</div>
 	</div>
 </div>
+<?php if($this->options->powermode=="able"): ?>
+<script src="<?php $this->options->themeUrl('./assets/js/activate-power-mode.js'); ?>"></script>
+<script>
+$(document).ready(function(){
+	POWERMODE.colorful = true; // make power mode colorful
+	POWERMODE.shake = false; // turn off shake
+	document.body.addEventListener('input', POWERMODE);
+});
+</script>
+<?php endif; ?>
+
+<?php if($this->options->clickanime=="able"): ?>
+<canvas id="clickcanvas"></canvas>
+<script src="<?php $this->options->themeUrl('./assets/js/click.js'); ?>"></script>
+<?php endif; ?>
 </body>
 
 </html>

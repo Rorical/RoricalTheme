@@ -6,7 +6,7 @@
     	<div class="container container-lg py-5 align-items-center" style="text-align: center;">
     		<br>
     		<br>
-    		<h1 class="display-1" style="width:85%;margin:auto"><a class="nav-link mb-sm-3 mb-md-0 active" style="width:85%;margin:auto"id="tabs-icons-text-1-tab"><div class="card-profile-image">
+    		<h2 class="display-2" style="width:85%;margin:auto"><a class="nav-link mb-sm-3 mb-md-0 active" style="width:85%;margin:auto"id="tabs-icons-text-1-tab"><div class="card-profile-image">
                 </div><span class="text-info card card-profile shadow" style="width:85%;margin:auto">
     		<?php $this->archiveTitle(array(
             'category'  =>  _t('%s'),
@@ -14,18 +14,18 @@
             'tag'       =>  _t('< %s >'),
             'author'    =>  _t('%s 发布的文章 <br>' )
         ), '', ''); ?>
-        </span></a></h1>
+        </span></a></h2>
     		<?php if ($this->have()): ?>
     		<?php while($this->next()): ?>
       		<div class="row-grid justify-content-between mt-lg card card-lift--hover shadow border-0" style="width:85%;margin:auto">
         	<a href="<?php $this->permalink() ?>" title="<?php $this->title() ?>">
-        		<img data-original="<? echo( $this->fields->pic ? $this->fields->pic:$this->options->randompicUrl() . "?_=" . mt_rand() ) ?>" class="card-img">
+        		<img data-original="<? echo( $this->fields->pic ? $this->fields->pic:$this->options->randompicUrl() . "?_=" . mt_rand() ) ?>" no-viewer class="card-img">
         	</a>
         		<div class="card shadow">
         			<div class="card-body">
         				<div class="tab-content">
         					<div role="tabpanel" aria-labelledby="tabs-icons-text-1-tab" class="tab-pane fade show active">
-        						<div class="row py-3 align-items-center">
+        						<div class="row align-items-center">
         <div class="col-sm-4">
         	<a href="<?php $this->permalink() ?>" title="<?php $this->title() ?>">
         		
@@ -52,7 +52,7 @@
         </span>
         <span class="col-xs-11"><i class="fa fa-user-circle-o"></i><a class="badge badge-warning" href="<?php $this->author->permalink(); ?>"><?php $this->author(); ?></a></span>
         </div>
-        <p class="lead"> <?php $this->excerpt(30,'') ?> </p>
+        <p class="text-black"> <?php $this->excerpt(30,'') ?> </p>
         
         </div>
       </div>

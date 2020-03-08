@@ -19,6 +19,23 @@ function themeConfig($form) {
     $form->addInput($QQ);
     $Github = new Typecho_Widget_Helper_Form_Element_Text('Github', NULL, NULL, _t('你的Github'), _t('会放在首页'));
     $form->addInput($Github);
+    
+    $powermode = new Typecho_Widget_Helper_Form_Element_Radio('powermode',
+        array('able' => _t('启用'),
+            'disable' => _t('禁止'),
+        ),
+        'disable', _t('PowerMode打字特效'), _t('默认禁止，可以打开'));
+    $form->addInput($powermode);
+    $clickanime = new Typecho_Widget_Helper_Form_Element_Radio('clickanime',
+        array('able' => _t('启用'),
+            'disable' => _t('禁止'),
+        ),
+        'disable', _t('鼠标点击特效'), _t('默认禁止，也可以打开'));
+    $form->addInput($clickanime);
+    
+    $Analytic = new Typecho_Widget_Helper_Form_Element_Textarea('Analytic', NULL, NULL, _t('填写什么网站记录代码，类似Google Analytics等'), _t('给你加进Header，可以不填'));
+    $form->addInput($Analytic);
+    
 }
        	class Typecho_Widget_Helper_PageNavigator_Box extends Typecho_Widget_Helper_PageNavigator {
 	/**
@@ -611,14 +628,14 @@ class Widget_Comments_Archive extends Widget_Abstract_Comments
             'afterDate'     =>  '',
             'dateFormat'    =>  $this->options->commentDateFormat,
             'replyWord'     =>  _t('回复'),
-            'commentStatus' =>  _t('您的评论正等待审核！'),
+            'commentStatus' =>  "_t('审核ing...')",
             'avatarSize'    =>  32,
             'defaultAvatar' =>  NULL
         ));
         $this->pluginHandle()->trigger($plugged)->listComments($this->_singleCommentOptions, $this);
 
         if (!$plugged) {
-            if ($this->have()) { 
+            if ($this->have()) {
                 echo $this->_singleCommentOptions->before;
             
                 while ($this->next()) {
@@ -742,25 +759,7 @@ class Titleshow_Plugin implements Typecho_Plugin_Interface
      * @return void
      */
     public static function config(Typecho_Widget_Helper_Form $form)
-    {
-?><style>@media (max-width: 767px){.yaofan {display: none!important;}}</style><?php
-      $say=array(
-        "看到下面那个大大的二维码了吗，想不想用你大大的手机扫扫它！",
-        "好几天没吃早饭了，打赏下开发者吧！",
-        "小伙子，插件好用么，打赏下作者好吗？",
-        "如果觉得好用，可以扫描下方二维码进行打赏，支持作者！",
-        "你知道吗，我特别喜欢听人民币到账的提示音！",
-        "听说，打赏我的人最后都找到了真爱。",
-        "打赏的都是天使。",
-        "打赏了的人都会变美~",
-        "打赏3块钱，帮我买杯肥宅快乐水，继续创作，谢谢大家！",
-        "阔乐，我想和大阔乐，就差3块钱了！",
-                         );
-        $tixing = new Typecho_Widget_Helper_Form_Element_Text('tixing', NULL, NULL, _t('密码文字提醒'), _t('不填写则默认为【请输入密码访问】<div class="yaofan"><br>
-        <b>作者 ❤ 语：'.$say[rand(0,9)].'</b><br><br><img src="'.Helper::options()->pluginUrl.'/Titleshow/yaofan.jpg" style="max-width: 100%;">
-        </div>'));
-        $form->addInput($tixing);
-    }
+    {}
     
     /**
      * 个人用户的配置面板

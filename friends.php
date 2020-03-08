@@ -78,7 +78,7 @@
     		$(this).parent().append(inner);
     		$(this).remove()
 		})
-		$(this).addClass("container container-lg py-5 row")
+		$(this).addClass("container-lg py-5 row justify-content-center text-center content")
     })
     </script>
     <?php $this->need('comments.php'); ?>

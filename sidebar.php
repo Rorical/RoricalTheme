@@ -7,11 +7,8 @@
         <span><?php _e('归档'); ?></span>
     	</h3>
             <?php $this->widget('Widget_Contents_Post_Date', 'type=month&format=F Y','pageSize=3')
-            ->parse('<a href="{permalink}" class="alert alert-dismissible fade show" role="alert"><div class="alert alert-success alert-dismissible">
+            ->parse('<a href="{permalink}" class="alert  fade show" role="alert"><div class="alert alert-success ">
         				<span class="alert-inner--text"><strong>{date}</strong></span>
-        				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        				<span aria-hidden="true">×</span>
-        				</button>
     				</div></a>'); ?>
         
         		</div>
@@ -20,11 +17,8 @@
         <span><?php _e('最新文章'); ?></span>
     	</h3>
             <?php $this->widget('Widget_Contents_Post_Recent')
-            ->parse('<a href="{permalink}" class="alert alert-dismissible fade show" role="alert"><div class="alert alert-info alert-dismissible">
+            ->parse('<a href="{permalink}" class="alert  fade show" role="alert"><div class="alert alert-info ">
         				<span class="alert-inner--text"><strong>{title}</strong></span>
-        				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        				<span aria-hidden="true">×</span>
-        				</button>
     				</div></a>'); ?>
         
           
@@ -35,11 +29,8 @@
     	</h3>
         <?php $this->widget('Widget_Comments_Recent','ignoreAuthor=true&pageSize=3')->to($comments); ?>
         <?php while($comments->next()): ?>
-        	<a href="<?php $comments->permalink(); ?>" class="alert alert-dismissible fade show" role="alert"><div class="alert alert-warning alert-dismissible">
+        	<a href="<?php $comments->permalink(); ?>" class="alert  fade show" role="alert"><div class="alert alert-warning ">
         				<span class="alert-inner--text"><strong><?php $comments->author(false); ?></strong>: <?php $comments->excerpt(19, '...'); ?></span>
-        				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        				<span aria-hidden="true">×</span>
-        				</button>
     				</div></a>
         <?php endwhile; ?>
 
