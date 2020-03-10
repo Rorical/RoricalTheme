@@ -86,7 +86,9 @@
             </div>
           </div>
           <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+          	<?php if($this->options->navbar=="able"): ?>
             <li class="nav-item dropdown">
+            	
               <a href="#" class="nav-link" data-toggle="dropdown" role="button">
                 <i class="ni ni-ui-04 d-lg-none"></i>
                 <span class="nav-link-inner--text">页面</span>
@@ -129,6 +131,22 @@
   
               </div>
             </li>
+            <?php else: ?>
+            	<li class="nav-item">
+            		<a href="<?php $this->options->siteUrl(); ?>" class="nav-link">
+                		<span class="nav-link-inner--text">主页</span>
+            		</a>
+            	</li>
+            	<?php $this->widget('Widget_Contents_Page_List')->to($pages); ?>
+            	<?php while($pages->next()): ?>
+            		<li class="nav-item">
+            			<a href="<?php $pages->permalink(); ?>" class="nav-link">
+                			<span class="nav-link-inner--text"><?php $pages->title(); ?></span>
+            			</a>
+            		</li>
+            	<?php endwhile; ?>
+            <?php endif; ?>
+            
           </ul>
           <ul class="navbar-nav align-items-lg-center ml-lg-auto">
           	<li class="nav-item d-none d-lg-block ml-lg-4">

@@ -36,6 +36,13 @@ function themeConfig($form) {
     $Analytic = new Typecho_Widget_Helper_Form_Element_Textarea('Analytic', NULL, NULL, _t('填写什么网站记录代码，类似Google Analytics等'), _t('给你加进Header，可以不填'));
     $form->addInput($Analytic);
     
+    $navbar = new Typecho_Widget_Helper_Form_Element_Radio('navbar',
+        array('able' => _t('下拉式'),
+            'disable' => _t('平铺式'),
+        ),
+        'able', _t('网站导航栏对于独立页面的表现形式'), _t('默认为下拉式，不习惯可以改成和别的博客一样的平铺式'));
+    $form->addInput($navbar);
+    
 }
        	class Typecho_Widget_Helper_PageNavigator_Box extends Typecho_Widget_Helper_PageNavigator {
 	/**

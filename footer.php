@@ -67,8 +67,11 @@
 		item.className = item.className == '' ? lineNumberClassName : item.className + ' ' + lineNumberClassName;
 	});
 	
-	/*emj*/
-	emojify.run();
+	
+	if(typeof emojify != "undefined") {
+    	emojify.run();
+	}
+	
 	
 	if (isMathjaxConfig === false) { // 如果：没有配置MathJax
 		initMathjaxConfig();
@@ -117,6 +120,7 @@
 			if(viewer){
 				viewer.destroy()
 			}
+			
 			show()
 		}).on('pjax:complete',
 		function() {

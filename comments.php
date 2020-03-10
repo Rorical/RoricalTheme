@@ -201,11 +201,11 @@ echo $commentClass;
                 	document.getElementsByClassName("comments")[0].appendChild(ele)
                 	bindsubmit()
                 	console.log(emojify)
-                	if(emojify){
+                	if(typeof emojify != "undefined"){
                 		setTimeout(function() {
                 			emojify.run();
                 			
-                		}, 200);
+                		}, 1000);
                 	}
                 }
                 }else{
@@ -291,6 +291,7 @@ echo $commentClass;
         }
     };
 })();
-window.onload()
+if(window.onload){window.onload()}
+
 </script>
 
