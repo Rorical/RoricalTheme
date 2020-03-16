@@ -39,7 +39,9 @@
         <span class="col-xs-11"><i class="fa fa-calendar"></i> <time datetime="<?php $this->date('c'); ?>"><?php $this->date(); ?></time></span>
         <span style="margin:auto 10px;"><i class="fa fa-comments"></i> <?php $this->commentsNum('%d'); ?></span>
         <span><i class="fa fa-envelope-open-o"></i> 
-        <?php print($this->widget('Widget_Metas_Category_List')->parse('<a href="{permalink}" class="badge badge-info">{name}</a>')) ?>
+        <?php foreach( $this->categories as $categories): ?>
+        <a href="<? echo $categories['permalink']; ?>" class="badge badge-info"><? echo $categories['name']; ?></a>
+        <?php endforeach;?>
         </span>
         <span><i class="fa fa-tags"></i> 
         <? if (count($this->tags)>0): ?>
