@@ -11,7 +11,8 @@
 	font-size: 1rem;
 }
 .content strong {
-  font-family:"SourceHanSansCN" !important;
-  font-size: 1.2rem;
-  font-weight:bold;
+    font-family: "SourceHanSansCN" !important;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #555;
 }

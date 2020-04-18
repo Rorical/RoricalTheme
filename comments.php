@@ -51,7 +51,7 @@ echo $commentClass;
                     	<? $comments->gravatar('40', '',NULL,"rounded-circle"); ?>
                     </a>
                   </div>
-                  <div class="pl-4">
+                  <div class="pl-4" style="width:90%;">
                   	
                     <h5 class="title text-success breakword"><span class="badge badge-pill badge-primary"><?php echo $comments->levels(); ?>.</span><?php $comments->author(); ?></h5>
                     <a class="text-success breakword"><?php $comments->date('Y F jS '); ?></a>

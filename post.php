@@ -16,7 +16,39 @@
       </div>
       <!-- SVG separator -->
     </section>
-    
+    <div class="card shadow border-0 bg-secondary toc-container">
+    	<a class="carousel-control-prev" id="toc-nomiao">
+              <span class="ni ni-bold-left" id="toc-miao"></span>
+            </a>
+        	<div class="card-img tu container container-lg py-5 toc">
+        		<strong>文章目录</strong>
+        		<div class="toc-list">
+        		<? getCatalog(); ?>
+        		</div>
+        </div>
+    </div>
+    <script>
+    	var onshow = false;
+    	function tocshow(){
+    		if(onshow){
+    			$(".toc-container").css("right",'-175px')
+    			$("#toc-miao").removeClass("ni-bold-right").addClass("ni-bold-left")
+    		}else{
+    			$(".toc-container").css("right",'-5px')
+    			$("#toc-miao").removeClass("ni-bold-left").addClass("ni-bold-right")
+    		}
+    		onshow = !onshow
+    	}
+    	function jumpto(num){
+    		$('html,body').animate({ scrollTop: $('[name="cl-'+num+'"]').offset().top-100 }, 500)
+    	}
+    	$("#toc-nomiao").click(tocshow)
+    	<?php if($this->options->toc=="able"): ?>
+    	$(document).ready(function() {     
+			tocshow()
+		}); 
+    	<?php endif; ?>
+    </script>
     <section class="section">
       <div class="container container-lg py-5" style="max-width: 1500px;">
         <div class="card card-profile shadow mt--250">
@@ -51,7 +83,9 @@
         			<?php else: ?>
         			<a class="btn btn-sm btn-info mr-4">无标签..</a>
         			<?php endif; ?>
-        			<?php print($this->widget('Widget_Metas_Category_List')->parse('<a href="{permalink}" class="btn btn-sm btn-default float-right">{name}</a>')) ?>
+        			<?php foreach( $this->categories as $categories): ?>
+        			<a href="<? echo $categories['permalink']; ?>" class="btn btn-sm btn-default float-right"><? echo $categories['name']; ?></a	>
+        			<?php endforeach;?>
                 </div>
               </div>
             </div>
@@ -117,7 +151,10 @@
 						</script>
 					</div>
 				<? }else{ ?>
-                	<?php $content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i',"<img\$1data-original=\"\$2\" \$3>\n<noscript>\$0</noscript>",$this->content); echo $content ?>
+                	<?php 
+                	$content = preg_replace('/<img(.*?)src=[\'"]([^\'"]+)[\'"](.*?)>/i',"<noscript>\$0</noscript><img\$1data-original=\"\$2\" \$3>",$this->content); 
+                	echo $content 
+                	?>
                 <? } ?>
                 </div>
               </div>

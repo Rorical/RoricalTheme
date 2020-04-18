@@ -51,7 +51,9 @@
         			<?php else: ?>
         			<a class="btn btn-sm btn-info mr-4">无标签..</a>
         			<?php endif; ?>
-        			<?php print($this->widget('Widget_Metas_Category_List')->parse('<a href="{permalink}" class="btn btn-sm btn-default float-right">{name}</a>')) ?>
+        			<?php foreach( $this->categories as $categories): ?>
+        			<a href="<? echo $categories['permalink']; ?>" class="btn btn-sm btn-default float-right"><? echo $categories['name']; ?></a	>
+        			<?php endforeach;?>
                 </div>
               </div>
             </div>
@@ -59,7 +61,10 @@
             <div class="mt-5 py-5 border-top">
               <div class="row justify-content-center">
                 <div class="col-lg-9 breakword content">
-                  <?php $content = preg_replace('/<img(.+)src=[\'"]([^\'"]+)[\'"](.*)>/i',"<img\$1data-original=\"\$2\" \$3>\n<noscript>\$0</noscript>",$this->content); echo $content ?>
+                  <?php 
+                	$content = preg_replace('/<img(.*?)src=[\'"]([^\'"]+)[\'"](.*?)>/i',"<noscript>\$0</noscript><img\$1data-original=\"\$2\" \$3>",$this->content); 
+                	echo $content 
+                	?>
                   
                 </div>
               </div>

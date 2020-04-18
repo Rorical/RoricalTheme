@@ -17,7 +17,7 @@
         </span></a></h2>
     		<?php if ($this->have()): ?>
     		<?php while($this->next()): ?>
-      		<div class="row-grid justify-content-between mt-lg card card-lift--hover shadow border-0" style="width:85%;margin:auto">
+      		<div class="row-grid justify-content-between mt-lg card card-lift--hover shadow border-0" style="margin:auto;">
         	<a href="<?php $this->permalink() ?>" title="<?php $this->title() ?>">
         		<img data-original="<? echo( $this->fields->pic ? $this->fields->pic:$this->options->randompicUrl() . "?_=" . mt_rand() ) ?>" no-viewer class="card-img">
         	</a>
@@ -29,7 +29,7 @@
         <div class="col-sm-4">
         	<a href="<?php $this->permalink() ?>" title="<?php $this->title() ?>">
         		
-          <h3 class="display-3 mb-0"><?php $this->title() ?></h3>
+          <h3 class="display-4 mb-0"><?php $this->title() ?></h3>
           </a>
         </div>
         

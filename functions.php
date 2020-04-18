@@ -15,10 +15,6 @@ function themeConfig($form) {
     
     $randompicUrl = new Typecho_Widget_Helper_Form_Element_Text('randompicUrl', NULL, NULL, _t('随机图片'), _t('在这里填入一个图片 URL 地址'));
     $form->addInput($randompicUrl);
-    $QQ = new Typecho_Widget_Helper_Form_Element_Text('QQ', NULL, NULL, _t('你的QQ'), _t('会放在首页'));
-    $form->addInput($QQ);
-    $Github = new Typecho_Widget_Helper_Form_Element_Text('Github', NULL, NULL, _t('你的Github'), _t('会放在首页'));
-    $form->addInput($Github);
     
     $powermode = new Typecho_Widget_Helper_Form_Element_Radio('powermode',
         array('able' => _t('启用'),
@@ -36,6 +32,9 @@ function themeConfig($form) {
     $Analytic = new Typecho_Widget_Helper_Form_Element_Textarea('Analytic', NULL, NULL, _t('填写什么网站记录代码，类似Google Analytics等'), _t('给你加进Header，可以不填'));
     $form->addInput($Analytic);
     
+    $navbarIcons = new Typecho_Widget_Helper_Form_Element_Textarea('navbarIcons', NULL, _t('fa fa-github$$Github$$https://github.com/Liupaperbox/'), _t('自定义主页上面的标志，输错就爆炸哦'), _t('一行一个，格式为：图标的class$$显示文字$$点击跳转的链接'));
+    $form->addInput($navbarIcons);
+    
     $navbar = new Typecho_Widget_Helper_Form_Element_Radio('navbar',
         array('able' => _t('下拉式'),
             'disable' => _t('平铺式'),
@@ -43,8 +42,65 @@ function themeConfig($form) {
         'able', _t('网站导航栏对于独立页面的表现形式'), _t('默认为下拉式，不习惯可以改成和别的博客一样的平铺式'));
     $form->addInput($navbar);
     
+    $toc = new Typecho_Widget_Helper_Form_Element_Radio('toc',
+        array('able' => _t('开启'),
+            'disable' => _t('关闭'),
+        ),
+        'disable', _t('文章侧边的导航默认开不开'), _t('默认为关闭'));
+    $form->addInput($toc);
 }
-       	class Typecho_Widget_Helper_PageNavigator_Box extends Typecho_Widget_Helper_PageNavigator {
+
+function createCatalog($obj) {    //为文章标题添加锚点
+    global $catalog;
+    global $catalog_count;
+    $catalog = array();
+    $catalog_count = 0;
+    $obj = preg_replace_callback('/<h([1-6])(.*?)>(.*?)<\/h\1>/i', function($obj) {
+        global $catalog;
+        global $catalog_count;
+        $catalog_count ++;
+        $catalog[] = array('text' => trim(strip_tags($obj[3])), 'depth' => $obj[1], 'count' => $catalog_count);
+        return '<h'.$obj[1].$obj[2].'><a name="cl-'.$catalog_count.'"></a>'.$obj[3].'</h'.$obj[1].'>';
+    }, $obj);
+    return $obj;
+}
+
+function getCatalog() {    //输出文章目录容器
+    global $catalog;
+    $index = '';
+    if ($catalog) {
+        $index = '<ul>'."\n";
+        $prev_depth = '';
+        $to_depth = 0;
+        foreach($catalog as $catalog_item) {
+            $catalog_depth = $catalog_item['depth'];
+            if ($prev_depth) {
+                if ($catalog_depth == $prev_depth) {
+                    $index .= '</li>'."\n";
+                } elseif ($catalog_depth > $prev_depth) {
+                    $to_depth++;
+                    $index .= '<ul>'."\n";
+                } else {
+                    $to_depth2 = ($to_depth > ($prev_depth - $catalog_depth)) ? ($prev_depth - $catalog_depth) : $to_depth;
+                    if ($to_depth2) {
+                        for ($i=0; $i<$to_depth2; $i++) {
+                            $index .= '</li>'."\n".'</ul>'."\n";
+                            $to_depth--;
+                        }
+                    }
+                    $index .= '</li>';
+                }
+            }
+            $index .= '<li><a href="javascript:jumpto('.$catalog_item['count'].')">'.$catalog_item['text'].'</a>';
+            $prev_depth = $catalog_item['depth'];
+        }
+        for ($i=0; $i<=$to_depth; $i++) {
+            $index .= '</li>'."\n".'</ul>'."\n";
+        }
+    }
+    echo $index;
+}
+class Typecho_Widget_Helper_PageNavigator_Box extends Typecho_Widget_Helper_PageNavigator {
 	/**
      * 输出盒装样式分页栏
      *
@@ -151,6 +207,9 @@ function  art_count ($cid){
 function themeInit($archive)
 {
  Helper::options()->commentsMaxNestingLevels = 999;//正常设置最高只有7层
+ if ($archive->is('single')) {
+        $archive->content = createCatalog($archive->content);
+    }
 }
 function getPermalinkFromCoid($coid) {//留言加@  
 $db       = Typecho_Db::get();   
@@ -798,3 +857,6 @@ return $v;
 
 }
 Typecho_Plugin::factory('Widget_Abstract_Contents')->filter = array('Titleshow_Plugin', 'tshow');
+
+
+

@@ -60,12 +60,12 @@
 		isMathjaxConfig = true; // 
 		};
   function init(){
-  	Prism.highlightAll(true,null);
-    var pres = document.querySelectorAll('pre');
+  	var pres = document.querySelectorAll('pre');
 	var lineNumberClassName = 'line-numbers';
 	pres.forEach(function (item, index) {
 		item.className = item.className == '' ? lineNumberClassName : item.className + ' ' + lineNumberClassName;
-	});
+	})
+  	Prism.highlightAll(true, null);
 	
 	
 	if(typeof emojify != "undefined") {
@@ -182,6 +182,23 @@ $(document).ready(function(){
 <canvas id="clickcanvas"></canvas>
 <script src="<?php $this->options->themeUrl('./assets/js/click.js'); ?>"></script>
 <?php endif; ?>
+
+<a href="javascript:$('html,body').animate({ scrollTop: 0}, 500)"><button id="upbtn" class="btn btn-icon-only rounded-circle btn-info up-btn">
+	<span class="btn-inner--icon"><i class="ni ni-bold-up" aria-hidden="true"></i></span>
+</button></a>
+<script>
+$(window).scroll(function(){
+	if($(window).scrollTop()>=500){
+		if(!$("#upbtn").is(".upbtn-show")){
+			$("#upbtn").addClass("upbtn-show");
+		}
+	}else{
+		if($("#upbtn").is(".upbtn-show")){
+			$("#upbtn").removeClass("upbtn-show");
+		}
+	}
+});
+</script>
 </body>
 
 </html>

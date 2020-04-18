@@ -149,18 +149,16 @@
             
           </ul>
           <ul class="navbar-nav align-items-lg-center ml-lg-auto">
+          	<?php $icons = explode("\n",$this->options->navbarIcons) ?>
+          	<? for($i=0;$i<count($icons);$i++): ?>
+          	<? $icon = explode("$$",$icons[$i]) ?>
           	<li class="nav-item d-none d-lg-block ml-lg-4">
-          		<a class="nav-link nav-link-icon" href="<?php $this->options->Github(); ?>" target="_blank" data-toggle="tooltip" title="" data-original-title="点亮小星星吧！">
-                <i class="fa fa-github"></i>
-                <span class="nav-link-inner--text d-lg-none">Github</span>
+          		<a class="nav-link nav-link-icon" href="<?php echo $icon[2]; ?>" target="_blank" data-toggle="tooltip" title="" data-original-title="<? echo $icon[1]; ?>">
+                <i class="<? echo $icon[0]; ?>"></i>
+                <span class="nav-link-inner--text d-lg-none"><? echo $icon[1]; ?></span>
               </a>
           	</li>
-            <li class="nav-item d-none d-lg-block ml-lg-4">
-              <a class="nav-link nav-link-icon" href="tencent://message/?Menu=yes&uin=<?php $this->options->QQ(); ?>&Site=&Service=201&sigT=&sigU=" data-toggle="tooltip" title="" data-original-title="快速联系！">
-                <i class="fa fa-qq"></i>
-                <span class="nav-link-inner--text d-lg-none">QQ</span>
-              </a>
-            </li>
+        	<?php endfor; ?>
             
             <li class="nav-item d-none d-lg-block ml-lg-4">
               <a no-pjax class="nav-link nav-link-icon" href="<?php $this->options->feedUrl(); ?>" target="_blank" data-toggle="tooltip" title="" data-original-title="文章RSS">
@@ -181,14 +179,18 @@
     </header>
 <div id="main">
 <style>
+	:root{
+		--main-bg-image: url( <?php if($this->is('page') or $this->is('post')){ echo($this->fields->pic ? $this->fields->pic:$this->options->randompicUrl() . "?_=" . mt_rand());}else{echo($this->options->pcbackgroundUrl());} ?>) center center / cover no-repeat fixed;
+    
+    	--phone-bg-image: url(<?php if($this->is('page') or $this->is('post')){ echo($this->fields->pic ? $this->fields->pic:$this->options->randompicUrl() . "?_=" . mt_rand());}else{echo($this->options->mobilebackgroundUrl());} ?>) center center / cover no-repeat fixed;
+	}
     .banner::before{background-image: url(<?php $this->options->themeUrl('./assets/css/ground.png'); ?>);}
     .shape-background{
-    background: url( <?php if($this->is('page') or $this->is('post')){ echo($this->fields->pic ? $this->fields->pic:$this->options->randompicUrl() . "?_=" . mt_rand());}else{echo($this->options->pcbackgroundUrl());} ?>) center center / cover no-repeat fixed;
-    height: 100%; width: 100%; overflow: hidden;
+    	background: var(--main-bg-image);
+    	height: 100%; width: 100%; overflow: hidden;
     }
     @media(max-width: 678px){
-    	.shape-background{background: url(<?php if($this->is('page') or $this->is('post')){ echo($this->fields->pic ? $this->fields->pic:$this->options->randompicUrl() . "?_=" . mt_rand());}else{echo($this->options->mobilebackgroundUrl());} ?>) center center / cover no-repeat fixed;
-    	}
+    	.shape-background{background: var(--phone-bg-image);}
     	
     }
 </style>

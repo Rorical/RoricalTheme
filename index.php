@@ -29,8 +29,10 @@ $this->need('header.php');
       <div class="col px-0"> 
        <div class="row justify-content-center align-items-center"> 
         <div class="col-lg-7 text-center pt-lg"> 
-         <img src="<?php $this->options->AvatarUrl() ?>" style="width: 200px;" class="img-fluid pic rounded-circle shadow"> 
-         <h1 class="display-1 text-white"><?php $this->options->title() ?></h1>
+         <img src="<?php $this->options->AvatarUrl() ?>" style="width: 200px;" class="img-fluid pic rounded-circle shadow">
+         <div class="splight_div">
+         <h1 class="display-1 text-white splight" data-spotlight="<?php $this->options->title() ?>"><?php $this->options->title() ?></h1>
+         </div>
          <p class="lead text-white mt-4 mb-5"><?php $this->options->description() ?></p> 
          <div class="btn-wrapper"> 
          </div> 
@@ -47,7 +49,7 @@ $this->need('header.php');
     <section class="section section-components bg-secondary">
     	<div class="container container-lg py-5 align-items-center" style="text-align: center;">
     		<?php while($this->next()): ?>
-      		<div class="row-grid justify-content-between mt-lg card card-lift--hover shadow border-0" style="width:85%;margin:auto">
+      		<div class="row-grid justify-content-between mt-lg card card-lift--hover shadow border-0" style="margin:auto;">
         	<a href="<?php $this->permalink() ?>" title="<?php $this->title() ?>">
         		<img data-original="<? echo( $this->fields->pic ? $this->fields->pic:$this->options->randompicUrl() . "?_=" . mt_rand() ) ?>" no-viewer class="card-img">
         		<div class="card shadow">
@@ -56,7 +58,7 @@ $this->need('header.php');
         					<div role="tabpanel" aria-labelledby="tabs-icons-text-1-tab" class="tab-pane fade show active">
         						<div class="row align-items-center">
         <div class="col-sm-4">
-          <h3 class="display-3 mb-0"><?php $this->title() ?></h3>
+          <h3 class="display-4 mb-0"><?php $this->title() ?></h3>
         </div>
         <div class="col-sm-8">
         	<br>

@@ -6,7 +6,7 @@
         		<h3>
         <span><?php _e('归档'); ?></span>
     	</h3>
-            <?php $this->widget('Widget_Contents_Post_Date', 'type=month&format=F Y','pageSize=3')
+            <?php $this->widget('Widget_Contents_Post_Date', 'limit=3&type=month&format=F Y')
             ->parse('<a href="{permalink}" class="alert  fade show" role="alert"><div class="alert alert-success ">
         				<span class="alert-inner--text"><strong>{date}</strong></span>
     				</div></a>'); ?>
@@ -16,7 +16,7 @@
         <h3>
         <span><?php _e('最新文章'); ?></span>
     	</h3>
-            <?php $this->widget('Widget_Contents_Post_Recent')
+            <?php $this->widget('Widget_Contents_Post_Recent', 'pageSize=3')
             ->parse('<a href="{permalink}" class="alert  fade show" role="alert"><div class="alert alert-info ">
         				<span class="alert-inner--text"><strong>{title}</strong></span>
     				</div></a>'); ?>
@@ -27,7 +27,7 @@
         	<h3>
         <span><?php _e('最近回复'); ?></span>
     	</h3>
-        <?php $this->widget('Widget_Comments_Recent','ignoreAuthor=true&pageSize=3')->to($comments); ?>
+        <?php $this->widget('Widget_Comments_Recent','ignoreAuthor=true&limit=3')->to($comments); ?>
         <?php while($comments->next()): ?>
         	<a href="<?php $comments->permalink(); ?>" class="alert  fade show" role="alert"><div class="alert alert-warning ">
         				<span class="alert-inner--text"><strong><?php $comments->author(false); ?></strong>: <?php $comments->excerpt(19, '...'); ?></span>

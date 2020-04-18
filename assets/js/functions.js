@@ -18,3 +18,4 @@ function hide(){
 	$("iframe").removeClass("blur")
 	$("header").removeClass("blur")
 }
+

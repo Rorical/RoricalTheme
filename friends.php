@@ -74,7 +74,7 @@
     		url = $(this).children("li.url").text()
     		img = $(this).children("li.img").text()
     		dec = $(this).children("li.dec").text()
-    		inner = '<div class="col-md-3 mb-5 mb-md-0 border-0 "><div class="card shadow containter py-2 text-center card-lift--hover"><a href="' + url + '" target="_blank" style="padding-top: 2rem !important"><div class="icon icon-shape rounded-circle text-white mb-3" style="background:url(' + img + ') center center / cover no-repeat;"></div><h6>' + title + '</h6><p class="description">' + dec + '</p></div></div>'
+    		inner = '<div class="col-md-3 mb-5 py-5 mb-md-0 border-0 "><div class="card shadow containter py-2 text-center card-lift--hover"><a href="' + url + '" target="_blank" style="padding-top: 2rem !important"><div class="icon icon-shape rounded-circle text-white mb-3" style="background:url(' + img + ') center center / cover no-repeat;"></div><h6>' + title + '</h6><p class="description">' + dec + '</p></div></div>'
     		$(this).parent().append(inner);
     		$(this).remove()
 		})
